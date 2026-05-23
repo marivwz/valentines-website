@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valentines</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">i♡mygirlfriend</span>
+  <ul class="nav-links">
+    <li><a href="#fotos">Pics</a></li>
+    <li><a href="#historia">History</a></li>
+    <li><a href="#musicas">Playlist</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <canvas id="starCanvas"></canvas>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Desde — 21.06.2024</p>
+    <h1 class="hero-title">
+      <span class="line1">Para</span>
+      <span class="line2">Kéh ☆</span>
+    </h1>
+    <p class="hero-sub">a mais melhor dos mundos — feito com todo o meu amor.</p>
+  </div>
+
+  <div class="hero-photos">
+  <img src="pics/gatinhos.png" style="
+    position: relative;
+    width: 450px;
+    border-radius: 0px;
+    transform: rotate(0deg);
+  "/>
+  <span class="star-deco s1">✦</span>
+  <span class="star-deco s2">✦</span>
+</div>
+
+  <div class="hero-footer">
+    <span class="hero-footer-label">happy valentines</span>
+    <span class="scroll-hint">↓ &nbsp; scroll</span>
+    <span class="hero-footer-label">2026</span>
+  </div>
+</section>
+
+<!-- CONTADOR -->
+<section class="counter-section" id="contador">
+  <div class="counter-inner">
+    <div class="section-header fade-in">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Juntas <span class="accent">Há</span></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="counter-grid fade-in">
+      <div class="counter-cell">
+        <span class="counter-number" id="cnt-days">0</span>
+        <div class="counter-label">Dias</div>
+      </div>
+      <div class="counter-cell">
+        <span class="counter-number" id="cnt-hours">00</span>
+        <div class="counter-label">Horas</div>
+      </div>
+      <div class="counter-cell">
+        <span class="counter-number" id="cnt-min">00</span>
+        <div class="counter-label">Minutos</div>
+      </div>
+      <div class="counter-cell">
+        <span class="counter-number" id="cnt-sec">00</span>
+        <div class="counter-label">Segundos</div>
+      </div>
+    </div>
+    <p class="counter-since fade-in">desde 21 de junho de 2024</p>
+  </div>
+</section>
+
+<!-- CARROSSEL -->
+<section class="carousel-section" id="fotos">
+  <div class="carousel-inner">
+    <div class="section-header fade-in">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Cada <span class="accent">Momentinho</span></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="carousel-wrapper fade-in">
+      <div class="carousel-track-outer">
+        <div class="carousel-track" id="track">
+          <div class="carousel-slide" style="padding:0;"><img src="pics/junho24.jpeg" style="width:100%;height:100%;object-fit:cover;" /></div>
+          <div class="carousel-slide" style="padding:0;"><img src="pics/julho24.jpeg" style="width:100%;height:100%;object-fit:cover;" /></div>
+          <div class="carousel-slide" style="padding:0;"><img src="pics/agosto24.jpeg" style="width:100%;height:100%;object-fit:cover;" /></div>
+          <div class="carousel-slide" style="padding:0;"><img src="pics/set24.jpeg" style="width:100%;height:100%;object-fit:cover;" /></div>
+          <div class="carousel-slide" style="padding:0;"><img src="pics/out24.jpeg" style="width:100%;height:100%;object-fit:cover;" /></div>
+          <div class="carousel-slide" style="padding:0;"><img src="pics/nov24.jpeg" style="width:100%;height:100%;object-fit:cover;" /></div>
+          <div class="carousel-slide" style="padding:0;"><img src="pics/dez24.jpeg" style="width:100%;height:100%;object-fit:cover;" /></div>
+          <div class="carousel-slide" style="padding:0;"><img src="pics/jan25.jpeg" style="width:100%;height:100%;object-fit:cover;" /></div>
+          <div class="carousel-slide" style="padding:0;"><img src="pics/fev25.jpeg" style="width:100%;height:100%;object-fit:cover;" /></div>
+          <div class="carousel-slide" style="padding:0;"><img src="pics/mar25.jpeg" style="width:100%;height:100%;object-fit:cover;" /></div>
+          <div class="carousel-slide" style="padding:0;"><img src="pics/abril25.jpeg" style="width:100%;height:100%;object-fit:cover;" /></div>
+          <div class="carousel-slide" style="padding:0;"><img src="pics/maio25.jpeg" style="width:100%;height:100%;object-fit:cover;" /></div>
+          <div class="carousel-slide" style="padding:0;"><img src="pics/junho25.jpeg" style="width:100%;height:100%;object-fit:cover;" /></div>
+          <div class="carousel-slide" style="padding:0;"><img src="pics/julho25.jpeg" style="width:100%;height:100%;object-fit:cover;" /></div>
+          <div class="carousel-slide" style="padding:0;"><img src="pics/agosto25.jpeg" style="width:100%;height:100%;object-fit:cover;" /></div>
+          <div class="carousel-slide" style="padding:0;"><img src="pics/set25.jpeg" style="width:100%;height:100%;object-fit:cover;" /></div>
+          <div class="carousel-slide" style="padding:0;"><img src="pics/out25.jpeg" style="width:100%;height:100%;object-fit:cover;" /></div>
+          <div class="carousel-slide" style="padding:0;"><img src="pics/nov25.jpeg" style="width:100%;height:100%;object-fit:cover;" /></div>
+          <div class="carousel-slide" style="padding:0;"><img src="pics/dez25.jpeg" style="width:100%;height:100%;object-fit:cover;" /></div>
+            <div class="carousel-slide" style="padding:0;"><img src="pics/jan26.jpeg" style="width:100%;height:100%;object-fit:cover;" /></div>
+              <div class="carousel-slide" style="padding:0;"><img src="pics/fev26.jpeg" style="width:100%;height:100%;object-fit:cover;" /></div>
+                <div class="carousel-slide" style="padding:0;"><img src="pics/mar26.jpeg" style="width:100%;height:100%;object-fit:cover;" /></div>
+                  <div class="carousel-slide" style="padding:0;"><img src="pics/abril26.jpeg" style="width:100%;height:100%;object-fit:cover;" /></div>
+            
+        </div>
+      </div>
+
+      <div class="carousel-controls">
+        <div class="carousel-dots" id="dots"></div>
+        <span class="carousel-counter-text" id="slideCounter">01 / 19</span>
+        <div class="carousel-btns">
+          <button class="carousel-btn" id="prevBtn">&#8592;</button>
+          <button class="carousel-btn" id="nextBtn">&#8594;</button>
+        </div>
+      </div>
+      <p class="upload-hint">todos os meses desde junho/24</p>
+    </div>
+  </div>
+</section>
+
+<!-- LINHA DO TEMPO -->
+<section class="timeline-section" id="historia">
+  <div class="timeline-inner">
+    <div class="section-header fade-in">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Now and <span class="accent">Forever</span></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="timeline fade-in">
+
+      <div class="timeline-item-left">
+        <div class="tl-date">21 jun 2024</div>
+        <div class="tl-title">the beggining</div>
+        <div class="tl-desc">desde esse dia, tudo na vida tem tido mais sentido, obrigada por me inspirar a ser alguém melhor para te proporcionar o melhor.</div>
+      </div>
+      <div class="timeline-dot-wrap"><div class="timeline-dot"></div></div>
+      <div class="tl-spacer"></div>
+
+      <div class="tl-spacer"></div>
+      <div class="timeline-dot-wrap"><div class="timeline-dot"></div></div>
+      <div class="timeline-item-right">
+        <div class="tl-date">21 jun 2025</div>
+        <div class="tl-title">primeiro ano juntas</div>
+        <div class="tl-desc">primeiro ano di namoros que parecia já ser o 20°, amo e odeio como o tempo passa rápido quando estamos juntas.</div>
+      </div>
+
+      <div class="timeline-item-left">
+        <div class="tl-date">21 jun 2026</div>
+        <div class="tl-title">segundo ano juntas.</div>
+        <div class="tl-desc">certamente o ano mais difícil, muitas discussões e momentos que fizeram questionar se deveriamos seguir em frente como casal..Acontece que acho que enquanto 200 dias com vc forem bons, nao importa se tivermos 199 ruins, independentemente de qualquer coisa sei que fomos feitas uma para a outra e que iremos acabar vestidas de branco em um cenário bem crepusculo.</div>
+      </div>
+      <div class="timeline-dot-wrap"><div class="timeline-dot"></div></div>
+      <div class="tl-spacer"></div>
+
+      <div class="tl-spacer"></div>
+      <div class="timeline-dot-wrap"><div class="timeline-dot"></div></div>
+      <div class="timeline-item-right">
+        <div class="tl-date">21 jun ∞</div>
+        <div class="tl-title">para sempre</div>
+        <div class="tl-desc">esses são só os primeiros anos de uma história que se tudo der certo (e vai dar), será a mais linda de todas, te amo.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MÚSICAS -->
+<section class="music-section" id="musicas">
+  <div class="music-inner">
+    <div class="section-header fade-in">
+      <span class="section-num">04</span>
+      <h2 class="section-title">#SoundTrack<span class="accent">21624</span></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="music-grid fade-in">
+
+      <div class="music-card">
+        <div class="music-num">Stand By Me</div>
+        <iframe src="https://open.spotify.com/embed/track/3SdTKo2uVsxFblQjpScoHy?si=41a44cd6c14546f5"
+          height="152" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <p class="music-reason">todas as musicas de amor me lembram vc</p>
+      </div>
+
+      <div class="music-card">
+        <div class="music-num">Congratulations</div>
+        <iframe src="https://open.spotify.com/embed/track/1OubIZ0ARYCUq5kceYUQiO?si=05333eb83a644a3a"
+          height="152" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <p class="music-reason">essa tem qui ter.</p>
+      </div>
+
+      <div class="music-card">
+        <div class="music-num">Something</div>
+        <iframe src="https://open.spotify.com/embed/track/0pNeVovbiZHkulpGeOx1Gj?si=1e9a36e4e8734459"
+          height="152" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <p class="music-reason">something in the way she smile...</p>
+      </div>
+
+      <div class="music-card">
+        <div class="music-num">All That Matters</div>
+        <iframe src="https://open.spotify.com/embed/track/6CLVh9sekZ1p2G8Tfhhj8h?si=89eb25ce87894a60"
+          height="152" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <p class="music-reason">você é tudo oq mi importa!</p>
+      </div>
+
+      <div class="music-card">
+        <div class="music-num">Japanese Denim</div>
+        <iframe src="https://open.spotify.com/embed/track/7IVukH71OXfAu3KudrrizN?si=ffd87be57bf847fa"
+          height="152" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <p class="music-reason">de fato, vc é o meu trevo de quatro folhas.</p>
+      </div>
+
+      <div class="music-card">
+        <div class="music-num">Steal My Girl</div>
+        <iframe src="https://open.spotify.com/embed/track/2Bs4jQEGMycglOfWPBqrVG?si=f484a8385092484e"
+          height="152" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <p class="music-reason">i dont exist if i dont have her, the sun doesn´t shine, the world doesn´t turn</p>
+      </div>
+
+ <div class="music-card">
+        <div class="music-num">Every Time I Close My Eyes</div>
+        <iframe src="https://open.spotify.com/embed/track/2ur86gejngdRnhbfAMgbT2?si=4c012707be8b4512"
+          height="152" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <p class="music-reason">...</p>
+      </div>
+
+     <div class="music-card">
+        <div class="music-num">Pela Luz dos Olhos Teus</div>
+        <iframe src="https://open.spotify.com/embed/track/4SpqtLElDsO6KGbd4ub96Z?si=e9d28d61381343be"
+          height="152" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <p class="music-reason">quero a luz dos olhos meus na luz dos olhos teus </p>
+      </div>
+
+     <div class="music-card">
+        <div class="music-num">See You Again</div>
+        <iframe src="https://open.spotify.com/embed/track/7KA4W4McWYRpgf0fWsJZWB?si=7aa352970b8d42d8"
+          height="152" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <p class="music-reason">i wonder if you look both ways when you cross my mind.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MENSAGEM -->
+<section class="message-section">
+  <div class="message-inner fade-in">
+    <h2 class="message-title">Te amo mi amor</h2>
+    <p class="message-text">
+      "Você é a melhor coisa que aconteceu na mia vida.<br>
+      Feliz 2° dia dos namorados de muitos q ainda virão inclusive depois de ser esposa uhuuu <br>
+      Eu te amo mais qui tudo, espero que você saiba disso todos os dias da sua vida<br>
+      Tenho muito orgulho di vc namorada, não vejo a hora do nosso tão sonhado futuro chegar logos<br>
+      Obrigada por ser você.❤︎"
+    </p>
+    <p class="message-sign">— com todo o amor do mundo, Mari </p>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">Para: Krets</span>
+  <span class="footer-copy">Feito só para você</span>
+</footer>
+
+<script src="java.js"></script>
+</body>
+</html>
