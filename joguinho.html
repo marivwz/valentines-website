@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>joguinho</title>
+  <link rel="icon" type="image/png" href="./pics/gatinhos.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:      #0e0814;
+      --card:    #1a1025;
+      --card2:   #221535;
+      --purple:  #7c3aed;
+      --purple2: #9d5cf6;
+      --purple3: #c084fc;
+      --pink:    #f472b6;
+      --pink2:   #fbcfe8;
+      --white:   #f5f0ff;
+      --muted:   #7c6d8a;
+      --green:   #4ade80;
+      --yellow:  #fbbf24;
+      --blue:    #60a5fa;
+      --red:     #f87171;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── BG STARS ── */
+    .bg-stars {
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 0;
+      overflow: hidden;
+    }
+    .bg-star {
+      position: absolute;
+      border-radius: 50%;
+      background: white;
+      animation: twinkle linear infinite;
+    }
+    @keyframes twinkle {
+      0%,100% { opacity: 0.1; transform: scale(1); }
+      50%      { opacity: 0.7; transform: scale(1.4); }
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: relative; z-index: 2;
+      text-align: center;
+      padding: 2rem 1rem 0.5rem;
+    }
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #fff 0%, #c084fc 50%, #f472b6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    header p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .game {
+      position: relative; z-index: 1;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 1rem 1rem 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    /* ── CATS STAGE ── */
+    .stage {
+      background: var(--card);
+      border-radius: 24px;
+      border: 1px solid rgba(124,58,237,0.2);
+      padding: 1.5rem 1rem 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 2rem;
+      min-height: 220px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stage::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 50px;
+      background: linear-gradient(to top, rgba(124,58,237,0.07), transparent);
+      border-radius: 0 0 24px 24px;
+    }
+
+    /* ── CAT ── */
+    .cat-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.15s;
+    }
+    .cat-wrap:active { transform: scale(0.95); }
+
+    .cat-name {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--purple3);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .cat-sprite {
+      width: 130px;
+      height: auto;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      filter: drop-shadow(0 8px 20px rgba(124,58,237,0.4));
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    }
+
+    .cat-wrap:hover .cat-sprite { transform: translateY(-6px) scale(1.08); }
+
+    /* estados do gatinho */
+    .cat-wrap.eating   .cat-svg { animation: eatBounce 0.4s ease; }
+    .cat-wrap.petting  .cat-svg { animation: petWiggle 0.5s ease; }
+    .cat-wrap.bathing  .cat-svg { animation: bathShake 0.6s ease; }
+    .cat-wrap.playing  .cat-svg { animation: playJump 0.5s ease; }
+    .cat-wrap.sleeping .cat-svg { opacity: 0.7; filter: drop-shadow(0 8px 20px rgba(60,40,80,0.6)); }
+
+    @keyframes eatBounce  { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px) scale(1.1)} }
+    @keyframes petWiggle  { 0%,100%{transform:rotate(0)}     25%{transform:rotate(-8deg)}  75%{transform:rotate(8deg)} }
+    @keyframes bathShake  { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+    @keyframes playJump   { 0%,100%{transform:translateY(0)} 40%{transform:translateY(-18px) rotate(-5deg)} 60%{transform:translateY(-14px) rotate(5deg)} }
+
+    /* bolinha de humor flutuante */
+    .cat-mood {
+      font-size: 1.4rem;
+      animation: moodFloat 2.5s ease-in-out infinite;
+    }
+    @keyframes moodFloat {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-5px); }
+    }
+
+    /* partícula de ação */
+    .particle {
+      position: absolute;
+      font-size: 1.4rem;
+      pointer-events: none;
+      animation: particleUp 1s ease forwards;
+      z-index: 10;
+    }
+    @keyframes particleUp {
+      0%   { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-60px) scale(1.5); }
+    }
+
+    /* zzz dormindo */
+    .zzz {
+      position: absolute;
+      top: 10px; right: -10px;
+      font-size: 1rem;
+      color: var(--purple3);
+      opacity: 0;
+      animation: zzzFloat 2s ease-in-out infinite;
+    }
+    .sleeping .zzz { opacity: 1; }
+    @keyframes zzzFloat {
+      0%   { opacity: 0; transform: translate(0,0) scale(0.7); }
+      50%  { opacity: 1; }
+      100% { opacity: 0; transform: translate(8px,-20px) scale(1.2); }
+    }
+
+    /* ── STATS ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid rgba(124,58,237,0.15);
+      border-radius: 16px;
+      padding: 1rem 1.2rem;
+    }
+
+    .stat-card-title {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--purple3);
+      margin-bottom: 0.6rem;
+    }
+
+    .stat-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.45rem;
+    }
+    .stat-row:last-child { margin-bottom: 0; }
+
+    .stat-icon { font-size: 1rem; width: 20px; text-align: center; }
+
+    .stat-bar-wrap {
+      flex: 1;
+      height: 8px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .stat-bar {
+      height: 100%;
+      border-radius: 99px;
+      transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .stat-val {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--muted);
+      width: 28px;
+      text-align: right;
+    }
+
+    /* cores das barras */
+    .bar-food   { background: linear-gradient(90deg, var(--yellow), #f59e0b); }
+    .bar-love   { background: linear-gradient(90deg, var(--pink),   #ec4899); }
+    .bar-clean  { background: linear-gradient(90deg, var(--blue),   #3b82f6); }
+    .bar-energy { background: linear-gradient(90deg, var(--green),  #22c55e); }
+    .bar-fun    { background: linear-gradient(90deg, var(--purple3),var(--purple)); }
+
+    /* ── AÇÕES ── */
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.7rem;
+    }
+
+    .action-btn {
+      background: var(--card);
+      border: 1px solid rgba(124,58,237,0.2);
+      border-radius: 16px;
+      padding: 0.9rem 0.4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+      color: var(--white);
+      font-family: 'Nunito', sans-serif;
+    }
+
+    .action-btn:hover {
+      background: var(--card2);
+      border-color: rgba(124,58,237,0.5);
+      transform: translateY(-2px);
+    }
+
+    .action-btn:active { transform: scale(0.95); }
+
+    .action-btn .icon { font-size: 1.6rem; }
+    .action-btn .label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--muted);
+    }
+
+    /* ── SELETOR DE GATINHO ── */
+    .cat-selector {
+      display: flex;
+      gap: 0.6rem;
+      justify-content: center;
+    }
+
+    .cat-sel-btn {
+      padding: 0.4rem 1.2rem;
+      border-radius: 99px;
+      border: 1.5px solid rgba(124,58,237,0.3);
+      background: transparent;
+      color: var(--muted);
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .cat-sel-btn.active {
+      background: var(--purple);
+      border-color: var(--purple);
+      color: white;
+    }
+    .cat-sel-btn:hover:not(.active) {
+      border-color: var(--purple3);
+      color: var(--purple3);
+    }
+
+    /* ── LOG ── */
+    .log {
+      background: var(--card);
+      border: 1px solid rgba(124,58,237,0.1);
+      border-radius: 16px;
+      padding: 1rem 1.2rem;
+      min-height: 70px;
+      max-height: 100px;
+      overflow-y: auto;
+    }
+
+    .log::-webkit-scrollbar { width: 4px; }
+    .log::-webkit-scrollbar-track { background: transparent; }
+    .log::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.3); border-radius: 2px; }
+
+    .log-entry {
+      font-size: 0.8rem;
+      color: var(--muted);
+      padding: 0.15rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      animation: logFade 0.3s ease;
+    }
+    .log-entry:last-child { border-bottom: none; }
+    .log-entry span { color: var(--purple3); font-weight: 700; }
+
+    @keyframes logFade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; } }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 2rem; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--card2);
+      border: 1px solid rgba(124,58,237,0.4);
+      border-radius: 99px;
+      padding: 0.6rem 1.4rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--white);
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 100;
+      white-space: nowrap;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ── RESPONSIVO ── */
+    @media (max-width: 480px) {
+      .actions { grid-template-columns: repeat(2,1fr); }
+      .stats-grid { grid-template-columns: 1fr; }
+      .cat-svg { width: 85px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- BG STARS -->
+<div class="bg-stars" id="bgStars"></div>
+
+<header>
+  <h1> Gatinhos da Krets </h1>
+  <p>cuide dos bebês com muito amor puq é a gnt</p>
+</header>
+
+<div class="game">
+
+  <!-- SELETOR -->
+  <div class="cat-selector">
+    <button class="cat-sel-btn active" onclick="selectCat(0)">₍^. .^₎Ⳋ Kéh </button>
+    <button class="cat-sel-btn"       onclick="selectCat(1)">₍^. .^₎Ⳋ Mari </button>
+    <button class="cat-sel-btn"       onclick="selectCat(-1)">Ver as duas </button>
+  </div>
+
+  <!-- PALCO -->
+  <div class="stage" id="stage">
+
+    <!-- Gatinho 0 — krets (laranja) -->
+    <div class="cat-wrap" id="cat0" onclick="petCat(0)" title="Clique para dar carinho!">
+      <div class="cat-mood" id="mood0">₍^. .^₎Ⳋ</div>
+      <div style="position:relative;">
+        <img class="cat-sprite"
+          src="pics/kretsgatinho-removebg-preview.png"
+          alt="Krets" />
+      </div>
+      <div class="cat-name">Keh</div>
+      <span class="zzz" id="zzz0">💤</span>
+    </div>
+
+    <!-- Gatinho 1 — mari (preta) -->
+    <div class="cat-wrap" id="cat1" onclick="petCat(1)" title="Clique para dar carinho!">
+      <div class="cat-mood" id="mood1">₍^. .^₎Ⳋ</div>
+      <div style="position:relative;">
+        <img class="cat-sprite"
+          src="pics/marigatinho-removebg-preview.png"
+          alt="Mari" />
+      </div>
+      <div class="cat-name">mari</div>
+      <span class="zzz" id="zzz1">💤</span>
+    </div>
+
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-grid" id="statsGrid">
+    <!-- gerado pelo JS -->
+  </div>
+
+  <!-- AÇÕES -->
+  <div class="actions">
+    <button class="action-btn" onclick="doAction('food')">
+      <span class="icon">🍣</span>
+      <span class="label">Comida</span>
+    </button>
+    <button class="action-btn" onclick="doAction('love')">
+      <span class="icon">💜</span>
+      <span class="label">Carinho</span>
+    </button>
+    <button class="action-btn" onclick="doAction('bath')">
+      <span class="icon">🛁</span>
+      <span class="label">Banho</span>
+    </button>
+    <button class="action-btn" onclick="doAction('play')">
+      <span class="icon">🎾</span>
+      <span class="label">Brincar</span>
+    </button>
+  </div>
+
+  <!-- LOG -->
+  <div class="log" id="log">
+    <div class="log-entry"> Bem-vinda! Seus gatinhos estão esperando por você~</div>
+  </div>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  // ── BG STARS ──
+  const bgStars = document.getElementById('bgStars');
+  for (let i = 0; i < 60; i++) {
+    const s = document.createElement('div');
+    s.className = 'bg-star';
+    const size = Math.random() * 2.5 + 0.5;
+    s.style.cssText = `
+      width:${size}px; height:${size}px;
+      top:${Math.random()*100}%; left:${Math.random()*100}%;
+      animation-duration:${2+Math.random()*4}s;
+      animation-delay:${Math.random()*4}s;
+    `;
+    bgStars.appendChild(s);
+  }
+
+  // ── ESTADO ──
+  const CATS = [
+    { name: 'Krets', el: 'cat0', mood: 'mood0', zzz: 'zzz0' },
+    { name: 'Mari', el: 'cat1', mood: 'mood1', zzz: 'zzz1' },
+  ];
+
+  const state = CATS.map(() => ({
+    food:   80,
+    love:   75,
+    clean:  90,
+    energy: 85,
+    fun:    70,
+    sleeping: false,
+  }));
+
+  let selectedCat = -1; // -1 = ambos
+
+  const MOODS = [
+    { min: 80, emoji: '😻', label: 'Feliz demais!' },
+    { min: 60, emoji: '😸', label: 'Contente~' },
+    { min: 40, emoji: '😺', label: 'Tá bem' },
+    { min: 20, emoji: '🙀', label: 'Precisando de atenção!' },
+    { min: 0,  emoji: '😿', label: 'Triste...' },
+  ];
+
+  function getMood(s) {
+    const avg = (s.food + s.love + s.clean + s.energy + s.fun) / 5;
+    if (s.sleeping) return { emoji: '😴', label: 'Dormindo...' };
+    return MOODS.find(m => avg >= m.min) || MOODS[MOODS.length-1];
+  }
+
+  // ── RENDER STATS ──
+  const statsGrid = document.getElementById('statsGrid');
+
+  function renderStats() {
+    statsGrid.innerHTML = '';
+    CATS.forEach((cat, i) => {
+      const s = state[i];
+      const card = document.createElement('div');
+      card.className = 'stat-card';
+      card.innerHTML = `
+        <div class="stat-card-title">${cat.name}</div>
+        ${statRow('🍣', 'Fome',    s.food,   'bar-food')}
+        ${statRow('💜', 'Amor',    s.love,   'bar-love')}
+        ${statRow('🛁', 'Limpeza', s.clean,  'bar-clean')}
+        ${statRow('⚡', 'Energia', s.energy, 'bar-energy')}
+        ${statRow('🎾', 'Diversão',s.fun,    'bar-fun')}
+      `;
+      statsGrid.appendChild(card);
+    });
+  }
+
+  function statRow(icon, label, val, cls) {
+    const v = Math.max(0, Math.min(100, Math.round(val)));
+    return `
+      <div class="stat-row">
+        <span class="stat-icon">${icon}</span>
+        <div class="stat-bar-wrap">
+          <div class="stat-bar ${cls}" style="width:${v}%"></div>
+        </div>
+        <span class="stat-val">${v}</span>
+      </div>`;
+  }
+
+  // ── UPDATE MOODS ──
+  function updateMoods() {
+    CATS.forEach((cat, i) => {
+      const m = getMood(state[i]);
+      document.getElementById(cat.mood).textContent = m.emoji;
+      const zzzEl = document.getElementById(cat.zzz);
+      if (zzzEl) zzzEl.style.display = state[i].sleeping ? 'block' : 'none';
+      const catEl = document.getElementById(cat.el);
+      if (state[i].sleeping) catEl.classList.add('sleeping');
+      else catEl.classList.remove('sleeping');
+    });
+  }
+
+  // ── AÇÕES ──
+  const ACTION_MAP = {
+    food: { stat: 'food',   anim: 'eating',  particles: ['🍣','😋','✨'], msg: (n) => `${n} comeu e ficou feliz!` },
+    love: { stat: 'love',   anim: 'petting', particles: ['💜','💕','✨'], msg: (n) => `${n} recebeu carinho e ronronou 😻` },
+    bath: { stat: 'clean',  anim: 'bathing', particles: ['💧','🫧','✨'], msg: (n) => `${n} tomou banho e está cheiroso!` },
+    play: { stat: 'fun',    anim: 'playing', particles: ['🎾','⭐','✨'], msg: (n) => `${n} brincou e ficou animado!` },
+  };
+
+  function getTargets() {
+    if (selectedCat === -1) return [0, 1];
+    return [selectedCat];
+  }
+
+  function doAction(type) {
+    const act = ACTION_MAP[type];
+    const targets = getTargets();
+
+    targets.forEach(i => {
+      const s = state[i];
+      if (s.sleeping && type !== 'love') {
+        showToast(`${CATS[i].name} está dormindo... 😴`);
+        return;
+      }
+
+      // atualiza stat
+      s[act.stat] = Math.min(100, s[act.stat] + 18);
+      // efeitos colaterais
+      if (type === 'food')  { s.energy = Math.min(100, s.energy + 5); }
+      if (type === 'play')  { s.energy = Math.max(0, s.energy - 12); s.clean = Math.max(0, s.clean - 5); }
+      if (type === 'bath')  { s.fun   = Math.max(0, s.fun - 5); }
+      if (type === 'love')  { s.sleeping = false; }
+
+      // animação
+      const catEl = document.getElementById(CATS[i].el);
+      catEl.classList.remove('eating','petting','bathing','playing');
+      void catEl.offsetWidth;
+      catEl.classList.add(act.anim);
+      setTimeout(() => catEl.classList.remove(act.anim), 600);
+
+      // partícula
+      spawnParticle(catEl, act.particles[Math.floor(Math.random()*act.particles.length)]);
+    });
+
+    addLog(act.msg(targets.length === 2 ? 'Os dois' : CATS[targets[0]].name));
+    renderStats();
+    updateMoods();
+  }
+
+  function petCat(i) {
+    doAction('love');
+  }
+
+  // ── PARTÍCULA ──
+  function spawnParticle(parent, emoji) {
+    const stage = document.getElementById('stage');
+    const rect  = parent.getBoundingClientRect();
+    const srect = stage.getBoundingClientRect();
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.textContent = emoji;
+    p.style.left = (rect.left - srect.left + rect.width/2 - 12) + 'px';
+    p.style.top  = (rect.top  - srect.top  + 20) + 'px';
+    stage.appendChild(p);
+    setTimeout(() => p.remove(), 1000);
+  }
+
+  // ── LOG ──
+  function addLog(msg) {
+    const log = document.getElementById('log');
+    const entry = document.createElement('div');
+    entry.className = 'log-entry';
+    entry.innerHTML = `<span>${new Date().toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'})}</span> — ${msg}`;
+    log.prepend(entry);
+    if (log.children.length > 8) log.lastChild.remove();
+  }
+
+  // ── TOAST ──
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
+  }
+
+  // ── SELETOR DE GATO ──
+  function selectCat(idx) {
+    selectedCat = idx;
+    document.querySelectorAll('.cat-sel-btn').forEach((b, i) => {
+      b.classList.toggle('active', i === (idx === -1 ? 2 : idx));
+    });
+
+    // destaque visual
+    CATS.forEach((cat, i) => {
+      const el = document.getElementById(cat.el);
+      if (idx === -1 || idx === i) {
+        el.style.opacity = '1';
+        el.style.filter  = '';
+      } else {
+        el.style.opacity = '0.35';
+        el.style.filter  = 'grayscale(0.6)';
+      }
+    });
+
+    if (idx >= 0) addLog(`Você escolheu cuidar de ${CATS[idx].name} agora `);
+    else addLog('Cuidando dos dois gatinhos ao mesmo tempo 🐱🐱');
+  }
+
+  // ── DECAY (stats diminuem devagar) ──
+  setInterval(() => {
+    state.forEach((s, i) => {
+      if (!s.sleeping) {
+        s.food   = Math.max(0, s.food   - 0.8);
+        s.love   = Math.max(0, s.love   - 0.5);
+        s.clean  = Math.max(0, s.clean  - 0.4);
+        s.energy = Math.max(0, s.energy - 0.6);
+        s.fun    = Math.max(0, s.fun    - 0.7);
+      } else {
+        s.energy = Math.min(100, s.energy + 2);
+      }
+
+      // alerta se muito baixo
+      const avg = (s.food + s.love + s.clean + s.energy + s.fun) / 5;
+      if (avg < 30 && Math.random() < 0.3) {
+        showToast(`${CATS[i].name} precisa de atenção! 🙀`);
+      }
+
+      // dorme sozinho se energia muito baixa
+      if (s.energy < 15 && !s.sleeping) {
+        s.sleeping = true;
+        addLog(`${CATS[i].name} ficou cansado e foi dormir 😴`);
+      }
+      // acorda quando descansado
+      if (s.sleeping && s.energy > 70) {
+        s.sleeping = false;
+        addLog(`${CATS[i].name} acordou cheio de energia! 😸`);
+      }
+    });
+    renderStats();
+    updateMoods();
+  }, 3000);
+
+  // ── INIT ──
+  renderStats();
+  updateMoods();
+  selectCat(-1);
+  document.querySelectorAll('.zzz').forEach(z => z.style.display = 'none');
+</script>
+</body>
+</html>
+
