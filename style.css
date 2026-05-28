@@ -693,7 +693,13 @@ footer {
   nav { padding: 1.2rem 1.5rem; }
   .nav-links { gap: 1.2rem; }
   .hero-content { padding: 8rem 1.5rem 2rem; }
-  .hero-photos { display: none; }
+  .hero-photos { position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem; }
   .hero-footer { padding: 0 1.5rem 2rem; }
   .counter-section,
   .carousel-section,
