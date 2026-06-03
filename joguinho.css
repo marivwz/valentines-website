@@ -1,0 +1,366 @@
+:root {
+      --bg:      #0e0814;
+      --card:    #1a1025;
+      --card2:   #221535;
+      --purple:  #7c3aed;
+      --purple2: #9d5cf6;
+      --purple3: #c084fc;
+      --pink:    #f472b6;
+      --pink2:   #fbcfe8;
+      --white:   #f5f0ff;
+      --muted:   #7c6d8a;
+      --green:   #4ade80;
+      --yellow:  #fbbf24;
+      --blue:    #60a5fa;
+      --red:     #f87171;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── BG STARS ── */
+    .bg-stars {
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 0;
+      overflow: hidden;
+    }
+    .bg-star {
+      position: absolute;
+      border-radius: 50%;
+      background: white;
+      animation: twinkle linear infinite;
+    }
+    @keyframes twinkle {
+      0%,100% { opacity: 0.1; transform: scale(1); }
+      50%      { opacity: 0.7; transform: scale(1.4); }
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: relative; z-index: 2;
+      text-align: center;
+      padding: 2rem 1rem 0.5rem;
+    }
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #fff 0%, #c084fc 50%, #f472b6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    header p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .game {
+      position: relative; z-index: 1;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 1rem 1rem 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    /* ── CATS STAGE ── */
+    .stage {
+      background: var(--card);
+      border-radius: 24px;
+      border: 1px solid rgba(124,58,237,0.2);
+      padding: 1.5rem 1rem 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 2rem;
+      min-height: 220px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stage::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 50px;
+      background: linear-gradient(to top, rgba(124,58,237,0.07), transparent);
+      border-radius: 0 0 24px 24px;
+    }
+
+    /* ── CAT ── */
+    .cat-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.15s;
+    }
+    .cat-wrap:active { transform: scale(0.95); }
+
+    .cat-name {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--purple3);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .cat-sprite {
+      width: 130px;
+      height: auto;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      filter: drop-shadow(0 8px 20px rgba(124,58,237,0.4));
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    }
+
+    .cat-wrap:hover .cat-sprite { transform: translateY(-6px) scale(1.08); }
+
+    /* estados do gatinho */
+    .cat-wrap.eating   .cat-svg { animation: eatBounce 0.4s ease; }
+    .cat-wrap.petting  .cat-svg { animation: petWiggle 0.5s ease; }
+    .cat-wrap.bathing  .cat-svg { animation: bathShake 0.6s ease; }
+    .cat-wrap.playing  .cat-svg { animation: playJump 0.5s ease; }
+    .cat-wrap.sleeping .cat-svg { opacity: 0.7; filter: drop-shadow(0 8px 20px rgba(60,40,80,0.6)); }
+
+    @keyframes eatBounce  { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px) scale(1.1)} }
+    @keyframes petWiggle  { 0%,100%{transform:rotate(0)}     25%{transform:rotate(-8deg)}  75%{transform:rotate(8deg)} }
+    @keyframes bathShake  { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+    @keyframes playJump   { 0%,100%{transform:translateY(0)} 40%{transform:translateY(-18px) rotate(-5deg)} 60%{transform:translateY(-14px) rotate(5deg)} }
+
+    /* bolinha de humor flutuante */
+    .cat-mood {
+      font-size: 1.4rem;
+      animation: moodFloat 2.5s ease-in-out infinite;
+    }
+    @keyframes moodFloat {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-5px); }
+    }
+
+    /* partícula de ação */
+    .particle {
+      position: absolute;
+      font-size: 1.4rem;
+      pointer-events: none;
+      animation: particleUp 1s ease forwards;
+      z-index: 10;
+    }
+    @keyframes particleUp {
+      0%   { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-60px) scale(1.5); }
+    }
+
+    /* zzz dormindo */
+    .zzz {
+      position: absolute;
+      top: 10px; right: -10px;
+      font-size: 1rem;
+      color: var(--purple3);
+      opacity: 0;
+      animation: zzzFloat 2s ease-in-out infinite;
+    }
+    .sleeping .zzz { opacity: 1; }
+    @keyframes zzzFloat {
+      0%   { opacity: 0; transform: translate(0,0) scale(0.7); }
+      50%  { opacity: 1; }
+      100% { opacity: 0; transform: translate(8px,-20px) scale(1.2); }
+    }
+
+    /* ── STATS ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid rgba(124,58,237,0.15);
+      border-radius: 16px;
+      padding: 1rem 1.2rem;
+    }
+
+    .stat-card-title {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--purple3);
+      margin-bottom: 0.6rem;
+    }
+
+    .stat-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.45rem;
+    }
+    .stat-row:last-child { margin-bottom: 0; }
+
+    .stat-icon { font-size: 1rem; width: 20px; text-align: center; }
+
+    .stat-bar-wrap {
+      flex: 1;
+      height: 8px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .stat-bar {
+      height: 100%;
+      border-radius: 99px;
+      transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .stat-val {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--muted);
+      width: 28px;
+      text-align: right;
+    }
+
+    /* cores das barras */
+    .bar-food   { background: linear-gradient(90deg, var(--yellow), #f59e0b); }
+    .bar-love   { background: linear-gradient(90deg, var(--pink),   #ec4899); }
+    .bar-clean  { background: linear-gradient(90deg, var(--blue),   #3b82f6); }
+    .bar-energy { background: linear-gradient(90deg, var(--green),  #22c55e); }
+    .bar-fun    { background: linear-gradient(90deg, var(--purple3),var(--purple)); }
+
+    /* ── AÇÕES ── */
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.7rem;
+    }
+
+    .action-btn {
+      background: var(--card);
+      border: 1px solid rgba(124,58,237,0.2);
+      border-radius: 16px;
+      padding: 0.9rem 0.4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+      color: var(--white);
+      font-family: 'Nunito', sans-serif;
+    }
+
+    .action-btn:hover {
+      background: var(--card2);
+      border-color: rgba(124,58,237,0.5);
+      transform: translateY(-2px);
+    }
+
+    .action-btn:active { transform: scale(0.95); }
+
+    .action-btn .icon { font-size: 1.6rem; }
+    .action-btn .label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--muted);
+    }
+
+    /* ── SELETOR DE GATINHO ── */
+    .cat-selector {
+      display: flex;
+      gap: 0.6rem;
+      justify-content: center;
+    }
+
+    .cat-sel-btn {
+      padding: 0.4rem 1.2rem;
+      border-radius: 99px;
+      border: 1.5px solid rgba(124,58,237,0.3);
+      background: transparent;
+      color: var(--muted);
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .cat-sel-btn.active {
+      background: var(--purple);
+      border-color: var(--purple);
+      color: white;
+    }
+    .cat-sel-btn:hover:not(.active) {
+      border-color: var(--purple3);
+      color: var(--purple3);
+    }
+
+    /* ── LOG ── */
+    .log {
+      background: var(--card);
+      border: 1px solid rgba(124,58,237,0.1);
+      border-radius: 16px;
+      padding: 1rem 1.2rem;
+      min-height: 70px;
+      max-height: 100px;
+      overflow-y: auto;
+    }
+
+    .log::-webkit-scrollbar { width: 4px; }
+    .log::-webkit-scrollbar-track { background: transparent; }
+    .log::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.3); border-radius: 2px; }
+
+    .log-entry {
+      font-size: 0.8rem;
+      color: var(--muted);
+      padding: 0.15rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      animation: logFade 0.3s ease;
+    }
+    .log-entry:last-child { border-bottom: none; }
+    .log-entry span { color: var(--purple3); font-weight: 700; }
+
+    @keyframes logFade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; } }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 2rem; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--card2);
+      border: 1px solid rgba(124,58,237,0.4);
+      border-radius: 99px;
+      padding: 0.6rem 1.4rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--white);
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 100;
+      white-space: nowrap;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ── RESPONSIVO ── */
+    @media (max-width: 480px) {
+      .actions { grid-template-columns: repeat(2,1fr); }
+      .stats-grid { grid-template-columns: 1fr; }
+      .cat-svg { width: 85px; }
+    }
